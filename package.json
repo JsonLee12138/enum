@@ -1,6 +1,6 @@
 {
   "name": "@jsonlee_12138/enum",
-  "description": "`@jsonlee_12138/enum` is a utility library for creating type-safe enums in TypeScript. It offers more powerful features than the built-in `enum`, including labels, extra metadata, and easy access to `options` and `dict` collections.",
+  "description": "@jsonlee_12138/enum is a utility library for creating type-safe enums in TypeScript. It offers more powerful features than the built-in enum, including labels, extra metadata, and easy access to options and dict collections.",
   "keywords": [
     "enum",
     "typescript",
