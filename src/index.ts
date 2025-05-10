@@ -2,6 +2,12 @@ export type PropertyKey = string | number | symbol;
 
 export type AnyObject<T = any> = Record<PropertyKey, T>;
 
+interface EnumImpl {
+  options: EnumItem[];
+  dict: Record<string | number, string | undefined>;
+  has: (key: string) => boolean;
+}
+
 class EnumItem<V extends number | string = number | string, E extends AnyObject = AnyObject> {
   constructor(public readonly value: V, public readonly label?: string, public readonly extra?: E) {
   }
@@ -48,10 +54,15 @@ class Enum<T extends Record<string, EnumItem>> {
         if(key === 'dict') {
           return Object.freeze(dict);
         }
+        if(key === 'has'){
+          return (key: string) => {
+            return Object.prototype.hasOwnProperty.call(target, key);
+          }
+        }
         return Reflect.get(target, key);
       }
     })
-    return Object.freeze(result) as T & { options: EnumItem[], dict: Record<string | number, string | undefined> };
+    return Object.freeze(result) as T & EnumImpl;
   }
 
   static Item<V extends number | string = number | string, E extends AnyObject = AnyObject>(value?: V, label?: string, extra?: E) {

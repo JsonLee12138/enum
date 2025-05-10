@@ -24,6 +24,8 @@ describe('test auto import', () => {
     expect(A.dict).toEqual(aDict);
     console.log('A.options', A.options);
     console.log('A.dict', A.dict);
+    expect(A.has('AAA')).toBe(true);
+    console.log('A.has', A.has('AAA'));
     const B = Enum.create({
       AAA: Enum.Item(),
       BBB: Enum.Item(),

@@ -87,6 +87,19 @@ console.log(Colors.dict)
 // }
 ```
 
+## `has` 方法
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.has('PENDING')) // true
+console.log(Status.has('DONE')) // false
+```
+
 ## 特性
 
 - 🛡️ 类型安全

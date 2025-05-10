@@ -91,6 +91,19 @@ console.log(Status.dict);
 // }
 ```
 
+## `has` Method
+
+```typescript
+const Status = Enum.create({
+  PENDING:    Enum.Item(0, 'Pending'),
+  PROCESSING: Enum.Item(1, 'Processing'),
+  COMPLETED:  Enum.Item(2, 'Completed', { color: 'green' })
+});
+
+console.log(Status.has('PENDING')) // true
+console.log(Status.has('DONE')) // false
+```
+
 ## Features
 
 - 🛡️ Type-safe enum definitions
