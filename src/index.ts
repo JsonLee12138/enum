@@ -2,6 +2,11 @@ export type PropertyKey = string | number | symbol;
 
 export type AnyObject<T = any> = Record<PropertyKey, T>;
 
+type WhiteSpace = ' ' | '\n' | '\t' | '\r' | '\f' | '\v';
+type TrimLeft<S extends string> = S extends `${WhiteSpace}${infer R}` ? TrimLeft<R> : S;
+type TrimRight<S extends string> = S extends `${infer R}${WhiteSpace}` ? TrimRight<R> : S;
+type Trim<S extends string = string> = TrimLeft<TrimRight<S>>;
+
 interface EnumImpl {
   options: EnumItem[];
   dict: Record<string | number, string | undefined>;
@@ -19,7 +24,7 @@ class Enum<T extends Record<string, EnumItem>> {
   static #lastValue = 0;
   static #values: (string | number)[] = [];
   private constructor(key: symbol, defs: T) {
-    if (key !== __ENUM_INTERNAL__){
+    if (key !== __ENUM_INTERNAL__) {
       throw new Error('Enum is not a constructor');
     }
     this.#defs = defs;
@@ -40,7 +45,7 @@ class Enum<T extends Record<string, EnumItem>> {
     for (const key in v) {
       if (Object.prototype.hasOwnProperty.call(v, key)) {
         const item = v[key];
-        if(typeof item === 'object'){
+        if (typeof item === 'object') {
           dict[item.value] = item.label;
           Object.freeze(item);
         }
@@ -48,13 +53,13 @@ class Enum<T extends Record<string, EnumItem>> {
     }
     const result = new Proxy(v, {
       get(target, key) {
-        if(key === 'options'){
+        if (key === 'options') {
           return Object.freeze(Object.values(target));
         }
-        if(key === 'dict') {
+        if (key === 'dict') {
           return Object.freeze(dict);
         }
-        if(key === 'has'){
+        if (key === 'has') {
           return (key: string) => {
             return Object.prototype.hasOwnProperty.call(target, key);
           }
@@ -65,14 +70,20 @@ class Enum<T extends Record<string, EnumItem>> {
     return Object.freeze(result) as T & EnumImpl;
   }
 
-  static Item<V extends number | string = number | string, E extends AnyObject = AnyObject>(value?: V, label?: string, extra?: E) {
-    if (!value) {
+  static Item<V extends number | Trim = number | Trim, E extends AnyObject = AnyObject>(value?: V, label?: string, extra?: E) {
+    if (typeof value === 'undefined') {
       if (!this.#lastValue) {
         value = 0 as V;
         this.#lastValue = 1;
       } else if (typeof this.#lastValue === 'number') {
         value = this.#lastValue as V;
       } else {
+        throw new Error('Invalid value');
+      }
+    }
+    if (typeof value === 'string') {
+      value = value.trim() as V;
+      if ((value as string).length === 0) {
         throw new Error('Invalid value');
       }
     }
