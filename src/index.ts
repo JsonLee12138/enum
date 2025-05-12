@@ -26,7 +26,7 @@ interface EnumImpl<T extends Record<string, EnumItem>> {
   has: (key: string) => boolean;
 }
 
-class EnumItem<V extends number | string = number | string, E extends AnyObject = AnyObject, L = DefaultLabel> {
+class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
   // #label?: L;
   constructor(public readonly value: V, public readonly label?: L, public readonly extra?: E) {
     // this.#label = label;
@@ -89,7 +89,7 @@ class Enum<T extends Record<string, EnumItem>> {
     return Object.freeze(result) as T & EnumImpl<T>;
   }
 
-  static Item<V extends number | Trim = number | Trim, E extends AnyObject = AnyObject, L extends DefaultLabel = DefaultLabel>(value?: V, label?: L, extra?: E) {
+  static Item<V extends number | Trim = number | Trim, L extends DefaultLabel = DefaultLabel, E extends AnyObject = AnyObject>(value?: V, label?: L, extra?: E) {
     if (typeof value === 'undefined') {
       if (!this.#lastValue) {
         value = 0 as V;
@@ -114,7 +114,7 @@ class Enum<T extends Record<string, EnumItem>> {
       throw new Error('Duplicate value');
     }
     this.#values.push(value);
-    return new EnumItem<V, E, L>(value, label, extra)
+    return new EnumItem<V, L, E>(value, label, extra)
   }
 }
 

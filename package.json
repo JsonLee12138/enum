@@ -12,9 +12,10 @@
     "dict",
     "dictionary"
   ],
-  "version": "0.0.9",
+  "version": "1.0.0",
   "scripts": {
     "build": "rimraf types && vite build",
+    "changeset": "changeset",
     "ci:publish": "pnpm changeset publish -r",
     "test": "vitest",
     "lint-staged": "lint-staged"
