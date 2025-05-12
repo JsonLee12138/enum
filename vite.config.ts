@@ -14,7 +14,21 @@ export default defineConfig(({mode})=> {
         entry: './src/index.ts',
         name: 'markdown-it-mermaid',
         fileName: (format) => {
-          return `${format}/index.js`
+          let fileType = 'js';
+          switch (format) {
+            case 'es':
+              fileType = 'mjs';
+              break;
+            case 'cjs':
+              fileType = 'cjs';
+              break;
+            case 'umd':
+              fileType = 'js';
+              break;
+            default:
+              break;
+          }
+          return `${format}/index.${fileType}`
         },
         formats: ['es', 'cjs', 'umd']
       },
