@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import Enum from '../src';
+import Enum, { type EnumValue, type EnumValues } from '../src';
 
 describe('test auto import', () => {
   test('test auto import', async () => {
@@ -9,6 +9,8 @@ describe('test auto import', () => {
     })
 
     console.log('A', A);
+    const aValues: EnumValues<typeof A> = [1, 2];
+    expect(aValues).toEqual([1, 2]);
     expect(A.AAA.value).toBe(1);
     expect(A.BBB.value).toBe(2);
     expect(A.AAA.label).toBe('测试A');
@@ -31,6 +33,7 @@ describe('test auto import', () => {
       BBB: Enum.Item(),
       CCC: Enum.Item(),
     })
+    const bValue: EnumValue<typeof B> = 1;
     console.log('B', B);
     expect(B.AAA.value).toBe(0);
     expect(B.BBB.value).toBe(1);

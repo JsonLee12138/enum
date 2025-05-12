@@ -39,6 +39,16 @@ console.log(Status.PENDING.extra);   // undefined
 console.log(Status.COMPLETED.value); // 2
 console.log(Status.COMPLETED.label); // 'Completed'
 console.log(Status.COMPLETED.extra); // { color: 'green' }
+
+// Type Handling
+EnumValue<typeof Status> // 0 | 1 | 2
+EnumValues<typeof Status> // (0 | 1 | 2)[]
+// Note: If there is no value, it will be inferred as string | number. Therefore, it is best to add generics, as shown below
+const Colors = Enum.create({
+  Red: Enum.Item<0>(),
+  Blue: Enum.Item<1>(),
+  Green: Enum.Item<2>(),
+})
 ```
 
 ## Automatic Increment

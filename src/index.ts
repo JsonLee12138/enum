@@ -7,6 +7,15 @@ type TrimLeft<S extends string> = S extends `${WhiteSpace}${infer R}` ? TrimLeft
 type TrimRight<S extends string> = S extends `${infer R}${WhiteSpace}` ? TrimRight<R> : S;
 type Trim<S extends string = string> = TrimLeft<TrimRight<S>>;
 
+type FilterEnumKeys<E> = {
+  [K in keyof E]: E[K] extends EnumItem ? K : never
+}[keyof E];
+
+export type EnumValue<E> =
+  E[FilterEnumKeys<E>] extends EnumItem<infer V> ? V : never;
+
+export type EnumValues<E> = EnumValue<E>[];
+
 interface EnumImpl {
   options: EnumItem[];
   dict: Record<string | number, string | undefined>;

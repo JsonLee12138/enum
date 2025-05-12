@@ -22,7 +22,7 @@ pnpm add @jsonlee_12138/enum
 ## 基础使用
 
 ```typescript
-import Enum from '@jsonlee_12138/enum';
+import Enum, type { EnumValue, EnumValues } from '@jsonlee_12138/enum';
 
 // 创建枚举
 const Status = Enum.create({
@@ -39,6 +39,16 @@ console.log(Status.PENDING.extra);    // undefined
 console.log(Status.COMPLETED.value);  // 2
 console.log(Status.COMPLETED.label);  // '已完成'
 console.log(Status.COMPLETED.extra);  // { color: 'green' }
+
+// 类型处理
+EnumValue<typeof Status> // 0 | 1 | 2
+EnumValues<typeof Status> // (0 | 1 | 2)[]
+// 注意: 如果没有值的时候会推断为 string | number, 因此最好加上范型, 如下
+const Colors = Enum.create({
+  Red: Enum.Item<0>(),
+  Blue: Enum.Item<1>(),
+  Green: Enum.Item<2>(),
+})
 ```
 
 ## 自动递增
