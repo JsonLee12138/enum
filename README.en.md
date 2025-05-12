@@ -22,7 +22,7 @@ pnpm add @jsonlee_12138/enum
 ## Basic Usage
 
 ```typescript
-import Enum from '@jsonlee_12138/enum';
+import Enum { type EnumValue, type EnumValues } from '@jsonlee_12138/enum';
 
 // Define an enum
 const Status = Enum.create({
