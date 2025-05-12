@@ -4,11 +4,12 @@ import Enum, { type EnumValue, type EnumValues } from '../src';
 describe('test auto import', () => {
   test('test auto import', async () => {
     const A = Enum.create({
-      AAA: Enum.Item(1, '测试A', { dayjs: 'dayjsAAA' }),
+      AAA: Enum.Item(1, ()=> '测试A', { dayjs: 'dayjsAAA' }),
       BBB: Enum.Item(2, '测试B'),
     })
 
     console.log('A', A);
+    // const a = A.dict[1] as EnumLabel<typeof A, 'AAA'>
     const aValues: EnumValues<typeof A> = [1, 2];
     expect(aValues).toEqual([1, 2]);
     expect(A.AAA.value).toBe(1);

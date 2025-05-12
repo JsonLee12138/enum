@@ -14,27 +14,21 @@ type FilterEnumKeys<E> = {
 export type EnumValue<E> =
   E[FilterEnumKeys<E>] extends EnumItem<infer V> ? V : never;
 
+export type EnumLabel<E, K extends keyof E = FilterEnumKeys<E>> = E[K] extends EnumItem<any, infer L> ? L : never;
+
 export type EnumValues<E> = EnumValue<E>[];
 
 type DefaultLabel = string | ((...args: any[]) => string);
 
-// type Label<L> = L extends string ? L : L extends ((...args: any[]) => string) ? ReturnType<L> : never;
-
 interface EnumImpl<T extends Record<string, EnumItem>> {
   options: (T[keyof T])[];
-  dict: Record<EnumValue<T>, string | undefined>;
+  dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
   has: (key: string) => boolean;
 }
 
 class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
-  // #label?: L;
   constructor(public readonly value: V, public readonly label?: L, public readonly extra?: E) {
-    // this.#label = label;
   }
-  // 不能处理function, 如果是function直接返回function
-  // get label() {
-  //   return this.#label;
-  // }
 }
 const __ENUM_INTERNAL__ = Symbol('Enum internal constructor key');
 
