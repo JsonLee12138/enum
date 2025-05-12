@@ -16,9 +16,9 @@ export type EnumValue<E> =
 
 export type EnumValues<E> = EnumValue<E>[];
 
-interface EnumImpl {
-  options: EnumItem[];
-  dict: Record<string | number, string | undefined>;
+interface EnumImpl<T extends Record<string, EnumItem>> {
+  options: (T[keyof T])[];
+  dict: Record<EnumValue<T>, string | undefined>;
   has: (key: string) => boolean;
 }
 
@@ -76,7 +76,7 @@ class Enum<T extends Record<string, EnumItem>> {
         return Reflect.get(target, key);
       }
     })
-    return Object.freeze(result) as T & EnumImpl;
+    return Object.freeze(result) as T & EnumImpl<T>;
   }
 
   static Item<V extends number | Trim = number | Trim, E extends AnyObject = AnyObject>(value?: V, label?: string, extra?: E) {

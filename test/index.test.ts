@@ -24,6 +24,8 @@ describe('test auto import', () => {
     const aDict = { '1': '测试A', '2': '测试B' };
     expect(A.options).toEqual(aOptions);
     expect(A.dict).toEqual(aDict);
+    console.log('A.dict[2]', A.dict[2]);
+    expect(A.dict[2]).toBe('测试B');
     console.log('A.options', A.options);
     console.log('A.dict', A.dict);
     expect(A.has('AAA')).toBe(true);
