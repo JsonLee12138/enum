@@ -16,15 +16,25 @@ export type EnumValue<E> =
 
 export type EnumValues<E> = EnumValue<E>[];
 
+type DefaultLabel = string | ((...args: any[]) => string);
+
+// type Label<L> = L extends string ? L : L extends ((...args: any[]) => string) ? ReturnType<L> : never;
+
 interface EnumImpl<T extends Record<string, EnumItem>> {
   options: (T[keyof T])[];
   dict: Record<EnumValue<T>, string | undefined>;
   has: (key: string) => boolean;
 }
 
-class EnumItem<V extends number | string = number | string, E extends AnyObject = AnyObject> {
-  constructor(public readonly value: V, public readonly label?: string, public readonly extra?: E) {
+class EnumItem<V extends number | string = number | string, E extends AnyObject = AnyObject, L = DefaultLabel> {
+  // #label?: L;
+  constructor(public readonly value: V, public readonly label?: L, public readonly extra?: E) {
+    // this.#label = label;
   }
+  // 不能处理function, 如果是function直接返回function
+  // get label() {
+  //   return this.#label;
+  // }
 }
 const __ENUM_INTERNAL__ = Symbol('Enum internal constructor key');
 
@@ -50,7 +60,7 @@ class Enum<T extends Record<string, EnumItem>> {
 
   static create<T extends Record<string, EnumItem>>(defs: T) {
     const v = new Enum(__ENUM_INTERNAL__, defs).#defs;
-    const dict: Record<string | number, string | undefined> = {};
+    const dict: Record<string | number, DefaultLabel | undefined> = {};
     for (const key in v) {
       if (Object.prototype.hasOwnProperty.call(v, key)) {
         const item = v[key];
@@ -79,7 +89,7 @@ class Enum<T extends Record<string, EnumItem>> {
     return Object.freeze(result) as T & EnumImpl<T>;
   }
 
-  static Item<V extends number | Trim = number | Trim, E extends AnyObject = AnyObject>(value?: V, label?: string, extra?: E) {
+  static Item<V extends number | Trim = number | Trim, E extends AnyObject = AnyObject, L extends DefaultLabel = DefaultLabel>(value?: V, label?: L, extra?: E) {
     if (typeof value === 'undefined') {
       if (!this.#lastValue) {
         value = 0 as V;
@@ -104,7 +114,7 @@ class Enum<T extends Record<string, EnumItem>> {
       throw new Error('Duplicate value');
     }
     this.#values.push(value);
-    return new EnumItem<V, E>(value, label, extra)
+    return new EnumItem<V, E, L>(value, label, extra)
   }
 }
 
