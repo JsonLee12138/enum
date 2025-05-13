@@ -106,8 +106,8 @@ const Status = Enum.create({
   COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
 });
 
-console.log(Status.has('PENDING')) // true
-console.log(Status.has('DONE')) // false
+console.log(Status.has(0)) // true
+console.log(Status.has('PENDING')) // false
 ```
 
 ## 特性
