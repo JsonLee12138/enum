@@ -23,7 +23,7 @@ type DefaultLabel = string | ((...args: any[]) => string);
 interface EnumImpl<T extends Record<string, EnumItem>> {
   options: (T[keyof T])[];
   dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
-  has: (key: string) => boolean;
+  has: (key: EnumValue<T> | string | number) => boolean;
 }
 
 class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
@@ -73,8 +73,8 @@ class Enum<T extends Record<string, EnumItem>> {
           return Object.freeze(dict);
         }
         if (key === 'has') {
-          return (key: string) => {
-            return Object.prototype.hasOwnProperty.call(target, key);
+          return (key: EnumValue<T> | string | number) => {
+            return Object.freeze(Object.values(target)).some(item => item.value === key);
           }
         }
         return Reflect.get(target, key);

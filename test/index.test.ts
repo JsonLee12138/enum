@@ -4,7 +4,7 @@ import Enum, { type EnumValue, type EnumValues } from '../src';
 describe('test auto import', () => {
   test('test auto import', async () => {
     const A = Enum.create({
-      AAA: Enum.Item(1, ()=> '测试A', { dayjs: 'dayjsAAA' }),
+      AAA: Enum.Item(1, '测试A', { dayjs: 'dayjsAAA' }),
       BBB: Enum.Item(2, '测试B'),
     })
 
@@ -29,7 +29,7 @@ describe('test auto import', () => {
     expect(A.dict[2]).toBe('测试B');
     console.log('A.options', A.options);
     console.log('A.dict', A.dict);
-    expect(A.has('AAA')).toBe(true);
+    expect(A.has(1)).toBe(true);
     console.log('A.has', A.has('AAA'));
     const B = Enum.create({
       AAA: Enum.Item(),
