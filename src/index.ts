@@ -16,6 +16,8 @@ export type EnumValue<E> =
 
 export type EnumLabel<E, K extends keyof E = FilterEnumKeys<E>> = E[K] extends EnumItem<any, infer L> ? L : never;
 
+export type EnumOption<E> = E[FilterEnumKeys<E>];
+
 export type EnumValues<E> = EnumValue<E>[];
 
 type DefaultLabel = string | ((...args: any[]) => string);

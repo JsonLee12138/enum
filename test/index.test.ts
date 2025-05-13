@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import Enum, { type EnumValue, type EnumValues } from '../src';
+import Enum, { type EnumOption, type EnumValue, type EnumValues } from '../src';
 
 describe('test auto import', () => {
   test('test auto import', async () => {
@@ -10,6 +10,12 @@ describe('test auto import', () => {
 
     console.log('A', A);
     // const a = A.dict[1] as EnumLabel<typeof A, 'AAA'>
+    const optionFirst = A.options[0];
+    const selectA = (item: EnumOption<typeof A>)=> {
+      return item.value;
+    }
+    const selectAValue = selectA(optionFirst);
+    expect(selectAValue).toBe(optionFirst.value);
     const aValues: EnumValues<typeof A> = [1, 2];
     expect(aValues).toEqual([1, 2]);
     expect(A.AAA.value).toBe(1);
