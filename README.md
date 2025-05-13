@@ -110,6 +110,18 @@ console.log(Status.has(0)) // true
 console.log(Status.has('PENDING')) // false
 ```
 
+## `get` 方法
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.get(0)) // {value: 0, label: '待处理', extra: undefined}
+```
+
 ## 特性
 
 - 🛡️ 类型安全

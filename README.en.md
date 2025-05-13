@@ -114,6 +114,18 @@ console.log(Status.has(0)) // true
 console.log(Status.has('PENDING')) // false
 ```
 
+## `get` Method
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, 'Pending'),
+  PROCESSING: Enum.Item(1, 'Processing'),
+  COMPLETED: Enum.Item(2, 'Completed', { color: 'green' })
+});
+
+console.log(Status.get(0)) // {value: 0, label: 'Pending', extra: undefined}
+```
+
 ## Features
 
 - 🛡️ Type-safe enum definitions

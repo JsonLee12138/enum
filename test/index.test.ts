@@ -14,6 +14,9 @@ describe('test auto import', () => {
     const selectA = (item: EnumOption<typeof A>)=> {
       return item.value;
     }
+    const optionFirstItem = A.get(1);
+    console.log('optionFirstItem', optionFirstItem);
+    expect(optionFirstItem?.label).toBe('测试A');
     const selectAValue = selectA(optionFirst);
     expect(selectAValue).toBe(optionFirst.value);
     const aValues: EnumValues<typeof A> = [1, 2];

@@ -1,6 +1,7 @@
 export type PropertyKey = string | number | symbol;
 
 export type AnyObject<T = any> = Record<PropertyKey, T>;
+// TODO: 添加一个get方法, 根据value取item
 
 type WhiteSpace = ' ' | '\n' | '\t' | '\r' | '\f' | '\v';
 type TrimLeft<S extends string> = S extends `${WhiteSpace}${infer R}` ? TrimLeft<R> : S;
@@ -25,7 +26,8 @@ type DefaultLabel = string | ((...args: any[]) => string);
 interface EnumImpl<T extends Record<string, EnumItem>> {
   options: (T[keyof T])[];
   dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
-  has: (key: EnumValue<T> | string | number) => boolean;
+  has: (value: EnumValue<T> | string | number) => boolean;
+  get: (value: EnumValue<T>) => EnumItem<EnumValue<T>, EnumLabel<T>> | undefined;
 }
 
 class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
@@ -75,8 +77,14 @@ class Enum<T extends Record<string, EnumItem>> {
           return Object.freeze(dict);
         }
         if (key === 'has') {
-          return (key: EnumValue<T> | string | number) => {
-            return Object.freeze(Object.values(target)).some(item => item.value === key);
+          return (value: EnumValue<T> | string | number) => {
+            return Object.freeze(Object.values(target)).some(item => item.value === value);
+          }
+        }
+        // 根据 value 获取 item
+        if (key === 'get') {
+          return (value: EnumValue<T>) => {
+            return Object.freeze(Object.values(target)).find(item => item.value === value);
           }
         }
         return Reflect.get(target, key);
