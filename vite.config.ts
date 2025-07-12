@@ -2,7 +2,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import dts from 'vite-plugin-dts';
 
-export default defineConfig(({mode})=> {
+export default defineConfig(({ mode }) => {
   loadEnv(mode, process.cwd());
   return {
     plugins: [dts({
@@ -12,7 +12,7 @@ export default defineConfig(({mode})=> {
     build: {
       lib: {
         entry: './src/index.ts',
-        name: 'markdown-it-mermaid',
+        name: 'enum',
         fileName: (format) => {
           let fileType = 'js';
           switch (format) {
@@ -37,7 +37,7 @@ export default defineConfig(({mode})=> {
       sourcemap: false,
       emptyOutDir: true,
       rollupOptions: {
-        external: ['markdown-it', 'mermaid']
+        external: ['vite', 'handlebars', 'node:fs', 'node:path', 'fs', 'path']
       }
     },
     test: {

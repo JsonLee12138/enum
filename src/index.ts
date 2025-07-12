@@ -23,7 +23,7 @@ export type EnumValues<E> = EnumValue<E>[];
 
 type DefaultLabel = string | ((...args: any[]) => string);
 
-interface EnumImpl<T extends Record<string, EnumItem>> {
+export interface EnumImpl<T extends Record<string, EnumItem>> {
   options: (T[keyof T])[];
   dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
   has: (value: EnumValue<T> | string | number) => boolean;

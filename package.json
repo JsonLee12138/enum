@@ -12,7 +12,7 @@
     "dict",
     "dictionary"
   ],
-  "version": "1.0.4",
+  "version": "1.0.4-beta.1",
   "scripts": {
     "build": "rimraf types && vite build",
     "changeset": "changeset",
