@@ -40,7 +40,7 @@
     "url": "git+https://github.com/JsonLee12138/enum.git"
   },
   "publishConfig": {
-    "registry": "https://www.npmjs.com/package/@jsonlee_12138/enum",
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "bugs": {
