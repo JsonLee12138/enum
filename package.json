@@ -21,6 +21,7 @@
     "test": "vitest",
     "lint-staged": "lint-staged"
   },
+  "author": "JsonLee12138",
   "type": "module",
   "files": [
     "dist",
@@ -37,7 +38,11 @@
   "unpkg": "./dist/umd/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JsonLee12138/enum"
+    "url": "git+https://github.com/JsonLee12138/enum.git"
+  },
+  "publishConfig": {
+    "registry": "https://www.npmjs.com/package/@jsonlee_12138/enum",
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/JsonLee12138/enum/issues",
