@@ -97,6 +97,30 @@ console.log(Colors.dict)
 // }
 ```
 
+## 读取 `values`
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.values) // [0, 1, 2]
+```
+
+## 读取 `labels`
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.labels) // ['待处理', '处理中', '已完成']
+```
+
 ## `has` 方法
 
 ```typescript
@@ -120,30 +144,6 @@ const Status = Enum.create({
 });
 
 console.log(Status.get(0)) // {value: 0, label: '待处理', extra: undefined}
-```
-
-## `values` 方法
-
-```typescript
-const Status = Enum.create({
-  PENDING: Enum.Item(0, '待处理'),
-  PROCESSING: Enum.Item(1, '处理中'),
-  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
-});
-
-console.log(Status.values()) // [0, 1, 2]
-```
-
-## `labels` 方法
-
-```typescript
-const Status = Enum.create({
-  PENDING: Enum.Item(0, '待处理'),
-  PROCESSING: Enum.Item(1, '处理中'),
-  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
-});
-
-console.log(Status.labels()) // ['待处理', '处理中', '已完成']
 ```
 
 ## 特性

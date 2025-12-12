@@ -16,8 +16,8 @@
   "scripts": {
     "build": "rimraf types && vite build",
     "changeset": "changeset",
-    "ci:publish": "pnpm changeset publish -r",
-    "ci:beta": "pnpm changeset publish --tag beta -r",
+    "ci:publish": "npm publish",
+    "ci:beta": "npm publish --tag beta",
     "test": "vitest",
     "lint-staged": "lint-staged"
   },
