@@ -31,8 +31,8 @@ export interface EnumImpl<T extends Record<string, EnumItem>> {
   dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
   has: (value: EnumValue<T> | string | number) => boolean;
   get: (value: EnumValue<T>) => EnumItem<EnumValue<T>, EnumLabel<T>> | undefined;
-  values: () => EnumValue<T>[];
-  labels: () => EnumLabel<T>[];
+  values: EnumValue<T>[];
+  labels: EnumLabel<T>[];
 }
 
 class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
