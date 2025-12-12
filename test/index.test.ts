@@ -8,10 +8,11 @@ describe('test auto import', () => {
       BBB: Enum.Item(2, '测试B'),
     })
 
-    console.log('A', A);
+    expect(A.values).toEqual([1, 2]);
+    expect(A.labels).toEqual(['测试A', '测试B']);
     // const a = A.dict[1] as EnumLabel<typeof A, 'AAA'>
     const optionFirst = A.options[0];
-    const selectA = (item: EnumOption<typeof A>)=> {
+    const selectA = (item: EnumOption<typeof A>) => {
       return item.value;
     }
     const optionFirstItem = A.get(1);
@@ -40,12 +41,14 @@ describe('test auto import', () => {
     console.log('A.dict', A.dict);
     expect(A.has(1)).toBe(true);
     console.log('A.has', A.has('AAA'));
+    // 这样会导致代码类型推断出问题
     const B = Enum.create({
       AAA: Enum.Item(),
       BBB: Enum.Item(),
       CCC: Enum.Item(),
     })
     const bValue: EnumValue<typeof B> = 1;
+    console.log('bValue', bValue);
     console.log('B', B);
     expect(B.AAA.value).toBe(0);
     expect(B.BBB.value).toBe(1);

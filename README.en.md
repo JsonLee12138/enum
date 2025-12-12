@@ -126,6 +126,30 @@ const Status = Enum.create({
 console.log(Status.get(0)) // {value: 0, label: 'Pending', extra: undefined}
 ```
 
+## `values` Method
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, 'Pending'),
+  PROCESSING: Enum.Item(1, 'Processing'),
+  COMPLETED: Enum.Item(2, 'Completed', { color: 'green' })
+});
+
+console.log(Status.values()) // [0, 1, 2]
+```
+
+## `labels` Method
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, 'Pending'),
+  PROCESSING: Enum.Item(1, 'Processing'),
+  COMPLETED: Enum.Item(2, 'Completed', { color: 'green' })
+});
+
+console.log(Status.labels()) // ['Pending', 'Processing', 'Completed']
+```
+
 ## Features
 
 - 🛡️ Type-safe enum definitions
@@ -136,6 +160,8 @@ console.log(Status.get(0)) // {value: 0, label: 'Pending', extra: undefined}
 - 🔒 Immutable enum instances
 - 📋 Readable `options` array
 - 🔑 Readable `dict` mapping
+- 🔢 Readable `values` array
+- 🏷️ Readable `labels` array
 
 ## Contributing
 

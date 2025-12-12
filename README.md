@@ -122,6 +122,30 @@ const Status = Enum.create({
 console.log(Status.get(0)) // {value: 0, label: '待处理', extra: undefined}
 ```
 
+## `values` 方法
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.values()) // [0, 1, 2]
+```
+
+## `labels` 方法
+
+```typescript
+const Status = Enum.create({
+  PENDING: Enum.Item(0, '待处理'),
+  PROCESSING: Enum.Item(1, '处理中'),
+  COMPLETED: Enum.Item(2, '已完成', { color: 'green' })
+});
+
+console.log(Status.labels()) // ['待处理', '处理中', '已完成']
+```
+
 ## 特性
 
 - 🛡️ 类型安全
@@ -132,6 +156,8 @@ console.log(Status.get(0)) // {value: 0, label: '待处理', extra: undefined}
 -  不可变枚举
 -  支持读取 `options`
 -  支持读取 `dict`
+-  支持读取 `values`
+-  支持读取 `labels`
 
 ## 📝 贡献指南
 欢迎提交`issue`或`pull request`，共同完善`TypeScript Enum`。

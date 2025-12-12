@@ -1,5 +1,6 @@
 export type PropertyKey = string | number | symbol;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyObject<T = any> = Record<PropertyKey, T>;
 // TODO: 添加一个get方法, 根据value取item
 
@@ -15,12 +16,14 @@ type FilterEnumKeys<E> = {
 export type EnumValue<E> =
   E[FilterEnumKeys<E>] extends EnumItem<infer V> ? V : never;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EnumLabel<E, K extends keyof E = FilterEnumKeys<E>> = E[K] extends EnumItem<any, infer L> ? L : never;
 
 export type EnumOption<E> = E[FilterEnumKeys<E>];
 
 export type EnumValues<E> = EnumValue<E>[];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DefaultLabel = string | ((...args: any[]) => string);
 
 export interface EnumImpl<T extends Record<string, EnumItem>> {
@@ -28,6 +31,8 @@ export interface EnumImpl<T extends Record<string, EnumItem>> {
   dict: Record<EnumValue<T>, EnumLabel<T> | undefined>;
   has: (value: EnumValue<T> | string | number) => boolean;
   get: (value: EnumValue<T>) => EnumItem<EnumValue<T>, EnumLabel<T>> | undefined;
+  values: () => EnumValue<T>[];
+  labels: () => EnumLabel<T>[];
 }
 
 class EnumItem<V extends number | string = number | string, L = DefaultLabel, E extends AnyObject = AnyObject> {
@@ -86,6 +91,12 @@ class Enum<T extends Record<string, EnumItem>> {
           return (value: EnumValue<T>) => {
             return Object.freeze(Object.values(target)).find(item => item.value === value);
           }
+        }
+        if (key === 'values') {
+          return Object.freeze(Object.values(target).map(item => item.value));
+        }
+        if (key === 'labels') {
+          return Object.freeze(Object.values(target).map(item => item.label));
         }
         return Reflect.get(target, key);
       }
